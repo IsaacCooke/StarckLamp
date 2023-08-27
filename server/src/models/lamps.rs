@@ -6,9 +6,9 @@ pub struct Lamp {
     pub id: i32,
     pub name: String,
     pub description: String,
-    pub red: i8,
-    pub green: i8,
-    pub blue: i8,
+    pub red: u8,
+    pub green: u8,
+    pub blue: u8,
     pub is_on: bool,
     pub user_id: i32,
     pub created_at: chrono::NaiveDateTime,
@@ -16,7 +16,6 @@ pub struct Lamp {
 }
 
 #[derive!(Insertable, AsChangeset)]
-#[diesel(table_name = "lamps")]
 pub struct NewLamp {
     pub name: String,
     pub red: i8,
