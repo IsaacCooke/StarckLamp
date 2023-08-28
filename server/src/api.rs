@@ -23,6 +23,15 @@ impl QueryRoot {
     async fn user(&self, id: i32) -> User {
         get_user_by_id(id);
     }
+    async fn lamps(&self, limit: i64) -> Vec<Lamp> {
+        get_lamps(limit);
+    }
+    async fn lamp(&self, id: i32) -> Lamp {
+        get_lamp_by_id(id);
+    }
+    async fn lamps_by_user(&self, user_id: i32) -> Vec<Lamp> {
+        get_lamp_by_user(user_id);
+    }
 }
 
 pub struct MutationRoot;
@@ -35,14 +44,32 @@ impl MutationRoot {
     async fn update_username(&self, _ctx: &Context<'_>, id: i32, username: String) -> User {
         Ok(update_username(id, username))
     }
-    async fn update_email(&self, _ctx: &Context<'_>, id: i32, username: String, email: String) -> User {
-        Ok(update_email(id, username, email))
+    async fn update_email(&self, _ctx: &Context<'_>, id: i32, email: String) -> User {
+        Ok(update_email(id, email))
     }
-    async fn update_password(&self, _ctx: &Context<'_>, id: i32, username: String, password: String) -> User {
-        Ok(update_password(id, username, password))
+    async fn update_password(&self, _ctx: &Context<'_>, id: i32, password: String) -> User {
+        Ok(update_password(id, password))
     }
     async fn delete_user(&self, _ctx: &Context<'_>, id: i32) -> User {
         Ok(delete_user(id))
+    }
+    async fn create_lamp(&self, _ctx: &Context<'_>, user_id: i32, name: String, description: String) -> Lamp {
+        Ok(add_lamp(name, description, user_id))
+    }
+    async fn set_lamp_color(&self, _ctx: &Context<'_>, id: i32, red: i16, green: i16, blue: i16) -> Lamp {
+        Ok(set_color(id, red, green, blue))
+    }
+    async fn set_lamp_is_on(&self, _ctx: &Context<'_>, id: i32, is_on: bool) -> Lamp {
+        Ok(toggle_on(id, is_on))
+    }
+    async fn update_lamp_name(&self, _ctx: &Context<'_>, id: i32, name: String) -> Lamp {
+        Ok(update_name(id, name))
+    }
+    async fn update_lamp_description(&self, _ctx: &Context<'_>, id: i32, description: String) -> Lamp {
+        Ok(update_description(id, description))
+    }
+    async fn delete_lamp(&self, _ctx: &Context<'_>, id: i32) -> Lamp {
+        Ok(delete_lamp(id))
     }
 }
 

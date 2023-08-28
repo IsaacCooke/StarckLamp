@@ -6,9 +6,9 @@ pub struct Lamp {
     pub id: i32,
     pub name: String,
     pub description: String,
-    pub red: u8,
-    pub green: u8,
-    pub blue: u8,
+    pub red: i16,
+    pub green: i16,
+    pub blue: i16,
     pub is_on: bool,
     pub user_id: i32,
     pub created_at: chrono::NaiveDateTime,
@@ -18,10 +18,12 @@ pub struct Lamp {
 #[derive!(Insertable, AsChangeset)]
 pub struct NewLamp {
     pub name: String,
-    pub red: i8,
-    pub green: i8,
-    pub blue: i8,
+    pub description: String,
+    pub red: i16,
+    pub green: i16,
+    pub blue: i16,
     pub is_on: bool,
+    pub user_id: i32,
 }
 
 #[Object]
@@ -32,13 +34,13 @@ impl Lamp {
     async fn name(&self) -> &str {
         &self.name
     }
-    async fn red(&self) -> i8 {
+    async fn red(&self) -> i16 {
         self.red
     }
-    async fn green(&self) -> i8 {
+    async fn green(&self) -> i16 {
         self.green
     }
-    async fn blue(&self) -> i8 {
+    async fn blue(&self) -> i16 {
         self.blue
     }
     async fn is_on(&self) -> bool {
