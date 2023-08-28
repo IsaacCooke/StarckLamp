@@ -1,5 +1,6 @@
 mod api;
 mod schema;
+mod server;
 mod data {
     pub mod postgresql;
 }
@@ -12,6 +13,9 @@ mod resolvers {
     pub mod lamps_resolver;
 }
 
-fn main() {
-    println!("Hello, world!");
+use server::run_server;
+
+#[actix_web::main]
+fn main() -> std::io::Result<()> {
+    run_server()
 }
