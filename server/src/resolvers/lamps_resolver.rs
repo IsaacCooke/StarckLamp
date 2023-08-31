@@ -37,7 +37,7 @@ pub fn get_lamp_by_user(param_user_id: i32) -> Vec<Lamp> {
     results
 }
 
-pub fn add_lamp(name: String, description: String, user_id: i32) -> Lamp {
+pub fn add_lamp(name: String, description: String, user_id: Option<i32>) -> Lamp {
     use crate::schema::lamps;
 
     let connection = &mut establish_connection();

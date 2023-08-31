@@ -26,7 +26,7 @@ async fn graphiql() -> HttpResponse {
 fn get_token_from_headers(headers: &HeaderMap) -> Option<Token> {
     headers
         .get("Token")
-        .and_then(|value| value.to_str().map(|s| Token*s.to_string()).ok())
+        .and_then(|value| value.to_str().map(|s| Token(s.to_string())).ok())
 }
 
 async fn index(

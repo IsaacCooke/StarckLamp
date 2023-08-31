@@ -1,5 +1,6 @@
-use diesel::prelude::*;
+use crate::schema::lamps;
 use async_graphql::{types::ID, Object};
+use diesel::prelude::*;
 
 #[derive(Queryable)]
 pub struct Lamp {
@@ -10,12 +11,11 @@ pub struct Lamp {
     pub green: i16,
     pub blue: i16,
     pub is_on: bool,
-    pub user_id: i32,
-    pub created_at: chrono::NaiveDateTime,
-    pub updated_at: chrono::NaiveDateTime,
+    pub user_id: Option<i32>,
 }
 
-#[derive!(Insertable, AsChangeset)]
+#[derive(Insertable, AsChangeset)]
+#[diesel(table_name = lamps)]
 pub struct NewLamp {
     pub name: String,
     pub description: String,
@@ -23,7 +23,7 @@ pub struct NewLamp {
     pub green: i16,
     pub blue: i16,
     pub is_on: bool,
-    pub user_id: i32,
+    pub user_id: Option<i32>,
 }
 
 #[Object]
@@ -46,13 +46,7 @@ impl Lamp {
     async fn is_on(&self) -> bool {
         self.is_on
     }
-    async fn user_id(&self) -> i32 {
+    async fn user_id(&self) -> Option<i32> {
         self.user_id
-    }
-    async fn created_at(&self) -> chrono::NaiveDateTime {
-        self.created_at
-    }
-    async fn updated_at(&self) -> chrono::NaiveDateTime {
-        self.updated_at
     }
 }

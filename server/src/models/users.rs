@@ -1,5 +1,5 @@
-use diesel::prelude::*;
 use async_graphql::{types::ID, Object};
+use diesel::prelude::*;
 
 #[derive(Queryable)]
 pub struct User {
@@ -7,16 +7,15 @@ pub struct User {
     pub username: String,
     pub email: String,
     pub password: String,
-    pub created_at: chrono::NaiveDateTime,
 }
 
-#[derive!(Insertable, AsChangeset)]
+#[derive(Insertable, AsChangeset)]
+#[diesel(table_name = crate::schema::users)]
 pub struct NewUser {
     pub username: String,
     pub email: String,
     pub password: String,
 }
-
 #[Object]
 impl User {
     async fn id(&self) -> ID {
@@ -27,8 +26,5 @@ impl User {
     }
     async fn email(&self) -> &str {
         &self.email
-    }
-    async fn created_at(&self) -> chrono::NaiveDateTime {
-        self.created_at
     }
 }

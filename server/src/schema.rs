@@ -10,8 +10,6 @@ diesel::table! {
         blue -> Int2,
         is_on -> Bool,
         user_id -> Nullable<Int4>,
-        created_at -> Nullable<Timestamp>,
-        updated_at -> Nullable<Timestamp>,
     }
 }
 
@@ -21,7 +19,6 @@ diesel::table! {
         username -> Varchar,
         email -> Varchar,
         password -> Varchar,
-        created_at -> Nullable<Timestamp>,
     }
 }
 
