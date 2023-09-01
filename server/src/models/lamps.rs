@@ -34,6 +34,9 @@ impl Lamp {
     async fn name(&self) -> &str {
         &self.name
     }
+    async fn description(&self) -> &str {
+        &self.description
+    }
     async fn red(&self) -> i16 {
         self.red
     }
